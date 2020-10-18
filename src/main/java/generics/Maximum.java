@@ -1,24 +1,31 @@
 package generics;
 
-public class Maximum<K> {
-	K a;
-	K b;
-	K c;
+import java.util.*;
 
-	public Maximum(K a, K b, K c) {
-		this.a = a;
-		this.b = b;
-		this.c = c;
+public class Maximum<K> {
+	K[] array;
+
+	public Maximum(K[] input) {
+		this.array=input;
 	}
 	
-	@SuppressWarnings("hiding")
-	public <K extends Comparable<K>> K findMaxOfThreeInputs(Maximum<K> maxObject) {
+	public static <K extends Comparable<K>> K findMaxOfThreeInputs(Maximum<K> maxObject) {
 
-		K max = maxObject.a;
-		if (maxObject.b.compareTo(max) > 0)
-			max = maxObject.b;
-		if (maxObject.c.compareTo(max) > 0)
-			max = maxObject.c;
-		return max;
+		int n= maxObject.array.length;
+		Optional<K> checkIfNull = Optional.ofNullable(maxObject.array[n-1]);
+		if(!checkIfNull.isEmpty())
+		{
+			Arrays.sort(maxObject.array);
+			return maxObject.array[n-1];
+		}
+		else
+		{
+			System.out.println("Input is empty");		
+			return null;
+		}
+	}
+	
+	public static <K> void printMaximumElement(K maximumElement) {
+		System.out.println("Maximum is : "+maximumElement);
 	}
 }
